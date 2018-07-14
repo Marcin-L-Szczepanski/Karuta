@@ -1,0 +1,449 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  transition: all 500ms linear;
+  height: 100%;
+  max-height: 1200px;
+  width: 100%;
+  padding-top: 1px;
+  background: lightblue url("http://komoriya-tatami.jp/komoriya/my/data/44/img/m-lgr.jpg") repeat center; 
+  border: 20px solid transparent;
+  -webkit-border-image: url(http://www.tatami.net/img/material/heri_okabe/905.jpg) 30 round; /* Safari 3.1-5 */
+  -o-border-image: url(http://www.tatami.net/img/material/heri_okabe/905.jpg) 30 round; /* Opera 11-12.1 */
+  border-image: url(http://www.tatami.net/img/material/heri_okabe/905.jpg) 40% round;
+}
+/*
+@media only screen and (orientation: landscape) {
+.container {
+width: 100%;
+}
+}
+*/
+
+
+.game__title {
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  font-family:'Yu Mincho';
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.title-logo {
+  position: relative;
+  display: block;
+  height: 70px;
+  text-align: center;
+  width: 150px;
+  font-family:'Yu Mincho';
+  font-size: 50px;
+  font-weight: 900;
+  border: none;
+  color: white;
+  background-color: #1a1a1a;
+}
+
+.title-logo::after {
+  position: absolute;
+  content: '';
+  top: 3px;
+  left: 3px;
+  height: 64px;
+  width: 144px;
+  border: 3px solid white;
+}
+
+.title__char {
+  display: inline-block;
+  margin: 1px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.title__char--blue {
+  background-color: #0066ff;
+}
+
+.title__char--red {
+  background-color: #ff1a1a;
+}
+
+.title__char--green {
+  background-color: #59b300;
+}
+
+.blur {
+  filter: blur(3px);
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1;
+  background-color: #817E79;
+  background-image: linear-gradient(45deg, #665B57 26%, transparent 25%, transparent 75%, #665B57 75%, #665B57), linear-gradient(45deg, #665B57 26%, transparent 25%, transparent 75%, #665B57 75%, #665B57);
+  background-position: 0 0, 50px 50px;
+  background-size: 100px 100px;
+  transition: all 700ms linear;
+}
+
+.curtain--hidden {
+  transform: scale(3);
+  opacity: 0;
+  z-index: -2;
+}
+
+.curtain::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(165deg, transparent, #665B57 80%, #665B57 40%)
+}
+
+.menu {
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1;
+  box-shadow: 0px 0px 52px -5px rgba(0,0,0,0.5);
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 500ms linear;
+}
+
+.menu--hidden {
+  transform: scale(3);
+  opacity: 0;
+  z-index: 0;
+}
+
+.start-game-btn {
+  display: block;
+  height: 70px;
+  width: 150px;
+  font-size: 20px;
+  font-weight: 900;
+  border: none;
+  color: white;
+  background-color: #1a1a1a;
+}
+
+.game {
+  width: 75%;
+  height: 98%;
+  margin: -25px auto 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  z-index: 2;
+
+}
+
+.game--hidden {
+  display: none;
+}
+
+
+
+.card:active {
+
+}
+
+
+
+.card-container {
+  width: 30%;
+  -webkit-perspective: 500px;
+  perspective: 500px;
+  position: relative;
+  margin: 3%;
+  display: block;
+  padding-bottom: 45%;
+  transition: transform 100ms linear;
+}
+
+
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  cursor: url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default;
+
+  -webkit-perspective: 400px;
+  perspective: 400px;
+  animation: fade 2000ms forwards;
+}
+
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.4s linear;
+  transition: -webkit-transform 0.9s linear;
+  -o-transition: transform 0.4s linear;
+  transition: transform 0.9s linear;
+  transition: transform 0.9s linear, -webkit-transform 0.9s linear;
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.75);
+}
+
+.card::after { 
+  background-image: url('https://raw.githubusercontent.com/Marcin-L-Szczepanski/Retroactive-Adjustment-Calculator/master/card.jpg');
+  background-size: cover;
+}
+
+
+.card::before {
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  font-family:'Yu Mincho';
+  font-weight: 900;
+  font-size: 18px;
+  content: attr(data-content);
+  /* https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes */
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 3px black;
+  transform: scale(0.87);
+
+}
+
+
+.card--yomifuda::before {
+
+}
+
+.card--torifuda::before {
+  font-size: 24px;
+}
+
+.card.left-edge::before {
+  animation: flip3 900ms forwards;
+  /*
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  */
+} 
+
+.card.right-edge::before {
+  animation: flip4 900ms forwards;
+  /*
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  */
+}
+
+
+
+.match {
+  display: none;
+  border: 2px solid blue;
+}
+
+.hidden {
+  z-index: -9;
+}
+
+.card-container:hover {
+  z-index: 2;
+}
+
+.selected {
+  cursor: default;
+  z-index: 3; 
+}
+.card.left-edge::after {
+  /*
+  transform: rotateY(180deg);
+
+  */
+  animation: flip2 900ms forwards;
+  -webkit-animation: flip2 900ms forwards;
+
+}
+.card.right-edge::after {
+  /* 
+  transform: rotateY(-180deg);
+  */
+  -webkit-animation: flip1 900ms forwards;
+  animation: flip1 900ms forwards;
+
+}
+/*
+.card.selected::before {
+transform: rotateY(0deg);
+
+-webkit-animation: flip2 400ms forwards;
+animation: flip2 400ms forwards;
+
+}
+*/
+
+@-webkit-keyframes flip1 {
+  0% {
+    -webkit-transform: scale(1) rotateY(0deg);
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    -webkit-transform: scale(1.5) rotateY(-90deg);
+    transform: scale(1.5) rotateY(-90deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(-180deg);
+    transform: scale(1) rotateY(-180deg);
+  }
+}
+
+@keyframes flip1 {
+  0% {
+    -webkit-transform: scale(1) rotateY(0deg);
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    -webkit-transform: scale(1.5) rotateY(-90deg);
+    transform: scale(1.5) rotateY(-90deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(-180deg);
+    transform: scale(1) rotateY(-180deg);
+  }
+}
+@-webkit-keyframes flip2 {
+  0% {
+    -webkit-transform: scale(1) rotateY(0deg);
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    -webkit-transform: scale(1.5) rotateY(90deg);
+    transform: scale(1.5) rotateY(90deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(180deg);
+    transform: scale(1) rotateY(180deg);
+  }
+}
+@keyframes flip2 {
+  0% {
+    -webkit-transform: scale(1) rotateY(0deg);
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    -webkit-transform: scale(1.5) rotateY(90deg);
+    transform: scale(1.5) rotateY(90deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(180deg);
+    transform: scale(1) rotateY(180deg);
+  }
+}
+
+
+@keyframes flip3 {
+  0% {
+    -webkit-transform: scale(1) rotateY(-180deg);
+    transform: scale(1) rotateY(-180deg);
+  }
+  50% {
+    -webkit-transform: scale(1.5) rotateY(-90deg);
+    transform: scale(1.5) rotateY(-90deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(0deg);
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+@keyframes flip4 {
+  0% {
+    -webkit-transform: scale(1) rotateY(180deg);
+    transform: scale(1) rotateY(180deg);
+  }
+
+  50% {
+    -webkit-transform: scale(1.5) rotateY(90deg);
+    transform: scale(1.5) rotateY(90deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotateY(0deg);
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.shadow {
+  -webkit-box-shadow: 0 35px 80px 0 rgba(97, 45, 45, .45);
+  box-shadow: 0 35px 80px 0 rgba(97, 45, 45, .45);
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+
+
+@media only screen and (orientation: landscape) {
+  .card {
+    width: 150px;
+    height: 200px;
+
+    top: calc(50% - 100px);
+    left: calc(50% - 75px);
+  }
+}
