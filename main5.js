@@ -31,15 +31,28 @@ const UICtrl = (function () {
     hide: function () {
       document.querySelector(UISelectors.curtain).classList.add('curtain--hidden');
       document.querySelector(UISelectors.menuWindow).classList.add('menu--hidden');
+      document.querySelector(UISelectors.curtain).addEventListener('transitionend', function() {
+        this.style.display = 'none';
+      });
+      document.querySelector(UISelectors.menuWindow).addEventListener('transitionend', function() {
+        this.style.display = 'none';
+      });
       document.querySelector(UISelectors.game).classList.remove('game--hidden');
     },
-    
+
     show: function () {
       document.querySelector(UISelectors.curtain).classList.remove('curtain--hidden');
       document.querySelector(UISelectors.menuWindow).classList.remove('menu--hidden');
+      document.querySelector(UISelectors.curtain).addEventListener('transitionend', function() {
+        this.style.display = 'flex';
+      });
+      document.querySelector(UISelectors.menuWindow).addEventListener('transitionend', function() {
+        this.style.display = 'flex';
+      });
       document.querySelector(UISelectors.game).classList.add('game--hidden');
     },
   }
+
 
   return {
     UISelectors: UISelectors,
